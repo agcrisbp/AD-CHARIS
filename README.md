@@ -135,13 +135,13 @@ python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r 
    </summary>
 
 #### OpenAIKey
-- Read: [Quickstart Tutorial](https://platform.openai.com/docs/quickstart), and create the OpenAIKey in [OpenAI Platform](https://platform.openai.com/api-keys).
+- Baca: [Quickstart Tutorial](https://platform.openai.com/docs/quickstart), lalu buat OpenAIKey di [OpenAI Platform](https://platform.openai.com/api-keys).
 
 #### IMGBB_KEY
-- Sign Up to [imgbb](https://imgbb.com/login) and read: [API](https://api.imgbb.com/).
+- Buat akun [imgbb](https://imgbb.com/login) dan baca: [API](https://api.imgbb.com/).
 
 #### WeatherAPI_KEY
-- Sign Up to [WeatherAPI](https://www.weatherapi.com/signup.aspx) then go to [Interactive API Explorer](https://www.weatherapi.com/api-explorer.aspx).
+- Buat akun [WeatherAPI](https://www.weatherapi.com/signup.aspx) lalu silahkan beralih ke [Interactive API Explorer](https://www.weatherapi.com/api-explorer.aspx).
 
 </details>
 
