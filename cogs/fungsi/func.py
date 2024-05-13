@@ -16,7 +16,6 @@ nochat_settings = {}
 bot_creator_id = None
 owner_ids = set()
 sub_command_cooldown = {}
-global_cooldown = {}
 default_volume = 30
 
 DEFAULT_WELCOME_MESSAGE = "Verifiksi berhasil!"

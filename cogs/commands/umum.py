@@ -5,7 +5,7 @@ from humanize.i18n import activate
 from datetime import datetime
 from bs4 import BeautifulSoup
 from cogs.fungsi.database import DataBase, DATA_OWNER, DATA_SERVER, client, cuaca_key
-from cogs.fungsi.func import Fungsi, Embeds, HOLIDAY_API, bot_creator_id, owner_ids, recent_channel_id, genius, global_cooldown, sub_command_cooldown
+from cogs.fungsi.func import Fungsi, Embeds, HOLIDAY_API, bot_creator_id, owner_ids, recent_channel_id, genius, sub_command_cooldown
 
 activate('id_ID')
 
@@ -782,25 +782,6 @@ class Umum(discord.Cog):
             )
             await ctx.respond(content='', embed=embed, delete_after=5)
             return
-    
-        # Memeriksa cooldown global
-        if 'perm' in global_cooldown:
-            current_time = time.time()
-            last_command_time = global_cooldown['perm']
-    
-            # Memeriksa apakah waktu antar command sudah mencapai 15 detik
-            if current_time - last_command_time < 60:
-                embed = discord.Embed(
-                description=f"Harap tunggu {60 - int(current_time - last_command_time)} detik sebelum menggunakan perintah ini lagi.",
-                color=discord.Color.red())
-                        
-                await ctx.respond(content='', embed=embed, delete_after=5)
-                
-                return
-              
-            global_cooldown['perm'] = time.time()
-        else:
-            global_cooldown['perm'] = time.time()
     
         # Memeriksa cooldown untuk subcommand
         if privasi.lower() in sub_command_cooldown:
