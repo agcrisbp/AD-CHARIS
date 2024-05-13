@@ -7,17 +7,24 @@
 
 ---
 
-# About
-
-- A messy code for an Indonesian multipurpose Discord bot, the goddess of charm, beauty, nature, human creativity, and fertility. Meet [CHARIS](https://discord.com/users/1200362228440895528) the bot.
-
----
-
 # Support
 
 <a href="https://www.buymeacoffee.com/agcrisbp" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 32px !important;width: 114px !important;" ></a>
 <a href="https://saweria.co/agcrisbp" target="_blank"><img src="https://bio.aghea.biz.id/saweria-button.png" alt="Saweria" style="height: 30px !important;width: 114px !important;" ></a>
 <a href="https://github.com/sponsors/agcrisbp" target="_blank"><img src="/public/sponsor-badge.svg" alt="Github Sponsor" style="height: 30px !important;width: 114px !important;" ></a>
+
+---
+
+<details>
+   <summary>
+   
+   # ENGLISH
+
+   </summary>
+
+# About
+
+- A messy code for an Indonesian multipurpose Discord bot, the goddess of charm, beauty, nature, human creativity, and fertility. Meet [CHARIS](https://discord.com/users/1200362228440895528) the bot.
 
 ---
 
@@ -72,9 +79,83 @@ python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r 
 ---
 
 # BUG?
-- Sometimes, when you restart the bot, it will make the [user.json](/user_data/user.json) data get deleted (as you see right now) due to some loops.
+- Sometimes, when you restart the bot, it will make the [user.json](/user_data/user.json) data get deleted due to some loops.
 
-- Found another? Please create Pull-Requests to this repo and/or report it via Issues and/or contact me through [SimpleX](https://aghea.biz.id/contact), [Email](https://aghea.biz.id/email), or [Discord](https://aghea.biz.id/discord).
+- Found another? Please create Pull-Requests to this repo and/or report it via Issues and/or contact me through [SimpleX](https://aghea.biz.id/contact), [Email](https://aghea.biz.id/email), or [Discord](https://aghea.biz.id/discord) | [CHARIS](https://dsc.gg/charis).
+
+</details>
+
+---
+
+<details>
+   <summary>
+   
+   # BAHASA INDONESIA
+
+   </summary>
+
+# Tentang
+
+- Kode acak-acakan Bot Discord serbaguna Berbahasa Indonesia. Sang dewi pesona, keindahan, alam, kreativitas manusia, dan kesuburan; Perkenalkan [CHARIS](https://discord.com/users/1200362228440895528).
+
+---
+
+# Langkah Awal
+
+- Clone repo ini:
+```
+gh repo clone https://github.com/agcrisbp/AD-CHARIS
+# atau
+git clone https://github.com/agcrisbp/AD-CHARIS
+```
+
+- Ubah nama `.env.dev` ke `.env` dan edit sesuai kebutuhan.
+
+- Instal requirements dan jalankan botnya:
+```
+python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r requirements.txt && python3 bot.py
+```
+
+> Edit & jalankan di VPS.
+
+---
+
+<details>
+   <summary>
+   
+   ### Buat OpenAIKey
+
+   </summary>
+
+- Baca: [Quickstart Tutorial](https://platform.openai.com/docs/quickstart), lalu buat OpenAIKey di [OpenAI Platform](https://platform.openai.com/api-keys).
+
+</details>
+
+<details>
+   <summary>
+   
+   ### Fitur
+
+   </summary>
+
+- Membuat percakapan dan gambar menggunakan OpenAI GPT-3, Temporary Voice Channel, Server Invitation Link, Welcome & Leave Message, Reaction Role, dll. Lihat: [mods.py](/cogs/commands/mods.py) dan [umum.py](/cogs/commands/umum.py).
+
+- Membuat Notifikasi Jadwal Shalat beserta role kota dan kategorinya. Lihat: [prayers.py](/cogs/commands/prayers.py).
+
+- Memutar radio, membuat radio baru, menghapus radio data (Khusus Bot Creator & Owner). Lihat: [radio.py](/cogs/commands/radio.py).
+
+- Command khusus Bot Creator & Owner. Lihat: [owners.py](/cogs/commands/owners.py).
+
+</details>
+
+---
+
+# BUG?
+- Kadang-kadang, ketika kamu me-restart bot, data [user.json](/user_data/user.json) akan terhapus karena beberapa loop.
+
+- Menemukan bug lain? Silakan buat Pull-Request ke repositori ini dan/atau laporkan melalui Issues dan/atau hubungi saya melalui [SimpleX](https://aghea.biz.id/contact), [Email](https://aghea.biz.id/email), atau [Discord](https://aghea.biz.id/discord) | [CHARIS](https://dsc.gg/charis).
+
+</details>
 
 ---
 
