@@ -334,7 +334,7 @@ class Control(discord.Cog):
             if voice_channel and voice_channel.channel == before.channel:
                 if voice_channel.is_playing():
                     voice_channel.stop()
-                if member.guild.id in self.bot.get_cog("Radio").invoke_channel:
+                if self.bot.get_cog("Radio").invoke_channel:
                     try:
                         embed = discord.Embed(color=discord.Color.red())
                         embed.title = f"Pemutaran radio dihentikan karena bot ditendang atau terputus dari channel suara."
@@ -394,7 +394,7 @@ class Control(discord.Cog):
             self.leave_on_empty = keluar_otomatis
             
             if len(members_ids) == 1 and member.guild.me.id in members_ids and self.leave_on_empty:
-                await asyncio.sleep(5)
+                await asyncio.sleep(300)
                 members_ids_after_sleep = [member.id for member in voice_channel.channel.members]
                 if len(members_ids_after_sleep) == 1 and member.guild.me.id in members_ids_after_sleep:
                     try:
@@ -404,7 +404,7 @@ class Control(discord.Cog):
                         await asyncio.sleep(1)
                         await voice_channel.disconnect()
                         
-                        if member.guild.id in self.bot.get_cog("Radio").invoke_channel:
+                        if self.bot.get_cog("Radio").invoke_channel:
                             try:
                                 embed = discord.Embed(color=discord.Color.red())
                                 embed.title = f"Pemutaran radio dihentikan karena tidak ada aktivitas apapun selama 5 menit."
