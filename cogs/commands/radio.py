@@ -111,7 +111,7 @@ class Radio(commands.Cog):
     
                     self.radio_stations[guild_id] = radio_id
     
-                    volume = guild_volumes.get(guild_id, default_volume) / 100  # Get volume from guild_volumes dictionary
+                    volume = guild_volumes.get(guild_id, default_volume) / 100
                     voice_channel.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(station_url), volume=volume),
                                        after=lambda e: print('Sudah.'))
     
@@ -121,7 +121,7 @@ class Radio(commands.Cog):
                     await channel.set_status(f"<:radio:1230396943377629216> **{station_name}**")
     
                     # Delete previous radio info message if exists
-                    if self.invoke_message_ids:
+                    if guild_id in self.invoke_message_ids:
                         try:
                             await self.invoke_messages[ctx.guild.id].delete()
                         except discord.HTTPException as e:
@@ -139,11 +139,11 @@ class Radio(commands.Cog):
                 # Connect to voice channel and play the radio
                 channel = ctx.author.voice.channel
                 voice_channel = await channel.connect()
-                volume = guild_volumes.get(guild_id, default_volume) / 100  # Get volume from guild_volumes dictionary
+                volume = guild_volumes.get(guild_id, default_volume) / 100
                 voice_channel.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(station_url), volume=volume),
                                    after=lambda e: print('Sudah.'))
                 
-                if self.invoke_message_ids:
+                if guild_id in self.invoke_message_ids:
                     try:
                         await self.invoke_messages[ctx.guild.id].delete()
                     except discord.HTTPException as e:
@@ -205,9 +205,10 @@ class Radio(commands.Cog):
                     # Stop any currently playing audio
                     if voice_channel.is_playing():
                         voice_channel.stop()
-    
-                    # Play the audio stream
-                    voice_channel.play(discord.FFmpegPCMAudio(station_url), after=lambda e: print('Sudah.', e))
+                    
+                    volume = guild_volumes.get(guild_id, default_volume) / 100
+                    voice_channel.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(station_url), volume=volume),
+                                       after=lambda e: print('Sudah.'))
                     
                     await voice_channel.channel.set_status(f"<:radio:1230396943377629216> **{station_name}**")
     
@@ -263,7 +264,7 @@ class Radio(commands.Cog):
             if guild_id in radio_stations:
                 del radio_stations[guild_id]
     
-            if self.invoke_message_ids:
+            if guild_id in self.invoke_message_ids:
                 try:
                     await self.invoke_messages[ctx.guild.id].delete()
                 except discord.HTTPException as e:

@@ -334,6 +334,8 @@ class Control(discord.Cog):
             if voice_channel and voice_channel.channel == before.channel:
                 if voice_channel.is_playing():
                     voice_channel.stop()
+                if guild_id in self.bot.get_cog("Radio").radio_stations:
+                    del self.bot.get_cog("Radio").radio_stations[guild_id]
                 if self.bot.get_cog("Radio").invoke_channel:
                     try:
                         embed = discord.Embed(color=discord.Color.red())
@@ -351,9 +353,6 @@ class Control(discord.Cog):
                 finally:
                     if voice_channel and not voice_channel.is_connected():
                         voice_channel.cleanup()
-
-            if guild_id in radio_stations:
-                del radio_stations[guild_id]
     
             if member.guild.id in self.bot.get_cog("Radio").invoke_messages:
                 try:
@@ -369,8 +368,8 @@ class Control(discord.Cog):
                 with open(radio_data_file, 'r') as file:
                     radio_data = json.load(file)
     
-                if guild_id in radio_stations:
-                    current_radio_id = radio_stations[guild_id]
+                if guild_id in self.bot.get_cog("Radio").radio_stations:
+                    current_radio_id = self.bot.get_cog("Radio").radio_stations[guild_id]
                     
                     if current_radio_id in radio_data:
                         # Get station information
@@ -403,6 +402,9 @@ class Control(discord.Cog):
                         await voice_channel.channel.set_status(None)
                         await asyncio.sleep(1)
                         await voice_channel.disconnect()
+                        
+                        if guild_id in self.bot.get_cog("Radio").radio_stations:
+                            del self.bot.get_cog("Radio").radio_stations[guild_id]
                         
                         if self.bot.get_cog("Radio").invoke_channel:
                             try:
