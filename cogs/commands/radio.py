@@ -73,8 +73,8 @@ class Radio(commands.Cog):
         if ctx.author.voice is None or ctx.author.voice.channel is None:
             return await ctx.respond("> Kamu harus berada di dalam voice channel!", delete_after=5)
     
-        self.invoke_channel = ctx.channel
         guild_id = ctx.guild.id
+        self.invoke_channel = ctx.guild.get_channel(guild_id)
     
         try:
             radio_data_file = 'radio/radio_data.json'
@@ -168,6 +168,7 @@ class Radio(commands.Cog):
     @radio.command(name='refresh', description='Refresh radio error.')
     async def refresh_command(self, ctx):
         guild_id = ctx.guild.id
+        self.invoke_channel = ctx.guild.get_channel(guild_id)
         
         if isinstance(ctx.channel, discord.DMChannel):
             return await ctx.respond("Kamu tidak bisa menggunakan perintah ini di DM!", delete_after=10)
