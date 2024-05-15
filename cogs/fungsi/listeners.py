@@ -957,13 +957,8 @@ class Control(discord.Cog):
                     e = None
                     try:
                         response = client.chat.completions.create(
-                            model="gpt-3.5-turbo",
+                            model="llama-3-sonar-large-32k-online",
                             messages=input_messages,
-                            temperature=0.9,
-                            max_tokens=1500,
-                            top_p=1,
-                            frequency_penalty=0,
-                            presence_penalty=0.6
                         )
                     except Exception as error:
                         e = error

@@ -12,7 +12,8 @@ DATA_SERVER = 'server_data'
 api_key = config("OPENAI_API_KEY")
 if api_key is None:
     print("API key not found in environment variables.")
-client = OpenAI(api_key=api_key)
+client = OpenAI(api_key=api_key, base_url="https://api.perplexity.ai")
+
 
 cuaca_key = config("WeatherAPI_KEY")
 
