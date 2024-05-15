@@ -336,11 +336,13 @@ class Control(discord.Cog):
                     voice_channel.stop()
                 if guild_id in self.bot.get_cog("Radio").radio_stations:
                     del self.bot.get_cog("Radio").radio_stations[guild_id]
-                if self.bot.get_cog("Radio").invoke_channel:
+                if guild_id in self.bot.get_cog("Radio").invoke_channel:
                     try:
                         embed = discord.Embed(color=discord.Color.red())
                         embed.title = f"Pemutaran radio dihentikan karena bot ditendang atau terputus dari channel suara."
-                        await self.bot.get_cog("Radio").invoke_channel.send(embed=embed)
+                        await self.bot.get_cog("Radio").invoke_channel[guild_id].send(embed=embed)
+                    except discord.HTTPException:
+                        print("Failed to send message due to HTTPException.")
                     except discord.NotFound:
                         pass
                 try:
@@ -406,11 +408,11 @@ class Control(discord.Cog):
                         if guild_id in self.bot.get_cog("Radio").radio_stations:
                             del self.bot.get_cog("Radio").radio_stations[guild_id]
                         
-                        if self.bot.get_cog("Radio").invoke_channel:
+                        if guild_id in self.bot.get_cog("Radio").invoke_channel:
                             try:
                                 embed = discord.Embed(color=discord.Color.red())
                                 embed.title = f"Pemutaran radio dihentikan karena tidak ada aktivitas apapun selama 5 menit."
-                                await self.bot.get_cog("Radio").invoke_channel.send(embed=embed)
+                                await self.bot.get_cog("Radio").invoke_channel[guild_id].send(embed=embed)
                             except discord.NotFound:
                                 pass
                         
