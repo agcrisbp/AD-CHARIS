@@ -86,7 +86,7 @@ python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r 
 ---
 
 # BUG?
-- Sometimes, when you restart the bot, it will make the [user.json](/user_data/user.json) data get deleted due to some loops.
+- Sometimes, when you restart the bot, it will make the [user.json](/user_data/user.json) data get deleted due to some loops. To avoid its data being reset, **YOU MUST** kill the `main.py` process first before changing any `.py` code.
 
 - Found another? Please create Pull-Requests to this repo and/or report it via Issues and/or contact me through [SimpleX](https://aghea.biz.id/contact), [Email](https://aghea.biz.id/email), or [Discord](https://aghea.biz.id/discord) | [CHARIS](https://dsc.gg/charis).
 
@@ -165,7 +165,7 @@ python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r 
 ---
 
 # BUG?
-- Kadang-kadang, ketika kamu me-restart bot, data [user.json](/user_data/user.json) akan terhapus karena beberapa loop.
+- Kadang-kadang, ketika kamu me-restart bot, data [user.json](/user_data/user.json) akan terhapus karena beberapa loop. Untung menghindari reset tersebut, kamu harus mematikan proses `main.py` terlebih dahulu sebelum mengubah kode `.py` apapun.
 
 - Menemukan bug lain? Silakan buat Pull-Request ke repositori ini dan/atau laporkan melalui Issues dan/atau hubungi saya melalui [SimpleX](https://aghea.biz.id/contact), [Email](https://aghea.biz.id/email), atau [Discord](https://aghea.biz.id/discord) | [CHARIS](https://dsc.gg/charis).
 
