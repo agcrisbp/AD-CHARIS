@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
 from discord.utils import get
+from decouple import config
 
 from cogs.fungsi.database import DataBase, DATA_SERVER, client
 
@@ -21,7 +22,7 @@ default_volume = 30
 DEFAULT_WELCOME_MESSAGE = "Verifiksi berhasil!"
 MAX_CHAT_HISTORY_LENGTH = 100
 HOLIDAY_API = 'https://date.nager.at/Api/v2/NextPublicHolidays/ID'
-genius = lyricsgenius.Genius("ovVTJN4-HNxvrW52mXTjG0zk2-deYVKM9R8DnjMHiJ8JOkS2UTNgJWJUwsd5FOr6")
+genius = lyricsgenius.Genius(config("GENIUS_API_KEY"))
 
 class Fungsi(discord.Cog):
     def __init__(self, bot):
