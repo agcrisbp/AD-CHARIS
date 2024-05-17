@@ -24,7 +24,7 @@
 
 # About
 
-- A messy code for an Indonesian multipurpose Discord bot, the goddess of charm, beauty, nature, human creativity, and fertility. Meet [CHARIS](https://discord.com/users/1200362228440895528) the bot.
+- A messy code for an Indonesian multipurpose Discord bot, the goddess of charm, beauty, nature, human creativity, and fertility. Meet [CHARIS](https://discord.com/users/1200362228440895528) the bot, please kindly vote us at [top.gg](https://top.gg/bot/1200362228440895528/vote) and don't forget to star this repo. :)
 
 ---
 
@@ -103,7 +103,7 @@ python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r 
 
 # Tentang
 
-- Kode acak-acakan Bot Discord serbaguna Berbahasa Indonesia. Sang dewi pesona, keindahan, alam, kreativitas manusia, dan kesuburan; Perkenalkan [CHARIS](https://discord.com/users/1200362228440895528).
+- Kode acak-acakan Bot Discord serbaguna Berbahasa Indonesia. Sang dewi pesona, keindahan, alam, kreativitas manusia, dan kesuburan; Perkenalkan [CHARIS](https://discord.com/users/1200362228440895528), tolong vote kami di [top.gg](https://top.gg/bot/1200362228440895528/vote) dan jangan lupa untuk meninggalkan bintang di repositori ini. :)
 
 ---
 
