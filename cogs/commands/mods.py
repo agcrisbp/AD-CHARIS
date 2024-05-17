@@ -44,6 +44,23 @@ class Mods(discord.Cog, View):
                                            choices=[discord.OptionChoice(name="Bot", value="bot"),
                                                     discord.OptionChoice(name="User", value="user") ]) = None):
         await ctx.defer()
+        
+        if not await Fungsi.has_voted(self, ctx.author.id):
+            button1 = Button(
+                emoji="<:charis:1237457208774496266>",
+                label="VOTE",
+                url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+            )
+            
+            view = View()
+            view.add_item(button1)
+            embed = discord.Embed(
+                description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+            )
+            
+            return await ctx.respond(embed=embed, view=view, delete_after=60, ephemeral=True)
+        
         if isinstance(ctx.channel, discord.DMChannel):
             return await ctx.respond("Kamu tidak bisa menggunakan perintah ini di DM!", delete_after=10)
         
@@ -592,6 +609,23 @@ class Mods(discord.Cog, View):
     )
     async def voice(self, ctx: discord.ApplicationContext, voice_channel: discord.VoiceChannel = None, nama_kategori: str = 'ꑭ CHARIS ꑭ', nama_channel: str = '⸸ Voice of Hell ⸸'):
         await ctx.defer()
+        
+        if not await Fungsi.has_voted(self, ctx.author.id):
+            button1 = Button(
+                emoji="<:charis:1237457208774496266>",
+                label="VOTE",
+                url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+            )
+            
+            view = View()
+            view.add_item(button1)
+            embed = discord.Embed(
+                description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+            )
+            
+            return await ctx.respond(embed=embed, view=view, delete_after=60, ephemeral=True)
+        
         if isinstance(ctx.channel, discord.DMChannel):
             return await ctx.respond("Kamu tidak bisa menggunakan perintah ini di DM!", delete_after=10)
         mod_channel = None

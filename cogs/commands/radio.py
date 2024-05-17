@@ -1,5 +1,6 @@
 import discord, json, random, asyncio, requests
 from discord.ext import commands
+from discord.ui import Button, View
 from decouple import config
 from cogs.fungsi.func import Fungsi, owner_ids
 
@@ -69,6 +70,24 @@ class Radio(commands.Cog):
     @radio.command(name='play', description='Memutar radio.')
     async def play_radio(self, ctx, nama_radio: str, keluar_otomatis: discord.Option(bool, default=False, description="Bot meninggalkan channel suara jika channel suara kosong.", choices=[discord.OptionChoice(name="Ya", value=True), discord.OptionChoice(name="Tidak", value=False)])):
         await ctx.defer()
+        
+        if not await Fungsi.has_voted(self, ctx.author.id):
+            button1 = Button(
+                emoji="<:charis:1237457208774496266>",
+                label="VOTE",
+                url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+            )
+            
+            view = View()
+            view.add_item(button1)
+            embed = discord.Embed(
+                description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+            )
+            
+            return await ctx.respond(embed=embed, view=view, delete_after=60, ephemeral=True)
+        
+        
         if isinstance(ctx.channel, discord.DMChannel):
             return await ctx.respond("Kamu tidak bisa menggunakan perintah ini di DM!", delete_after=10)
         if ctx.author.voice is None or ctx.author.voice.channel is None:

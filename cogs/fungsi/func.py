@@ -1,5 +1,6 @@
-import discord, random, os, requests, asyncio, pytz, json, lyricsgenius, aiohttp, re
+import discord, random, os, requests, asyncio, pytz, json, lyricsgenius, aiohttp, re, httpx
 from discord.ext import tasks, commands
+from discord.ui import Button, View
 from datetime import datetime, timedelta
 from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
@@ -29,6 +30,23 @@ class Fungsi(discord.Cog):
         self.bot: discord.Bot = bot
         self.recent_channel_id = recent_channel_id
         self.client = client
+        
+    async def has_voted(self, user_id: int) -> bool:
+        topgg_token = config("TOPGG_TOKEN")
+        url = f"https://top.gg/api/bots/{self.bot.user.id}/votes"
+
+        headers = {
+            "Authorization": topgg_token
+        }
+
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, headers=headers)
+
+        if response.status_code != 200:
+            return False
+
+        voters = response.json()
+        return any(voter['id'] == str(user_id) for voter in voters)
 
     # KOTA
     kota_mapping = {
@@ -2075,6 +2093,22 @@ class Views:
         
             voice_channel = interaction.channel
             channel_data = recent_channel_id["temp"].get(str(voice_channel.id))
+            
+            if not await Fungsi.has_voted(self, interaction.user.id):
+                button1 = Button(
+                    emoji="<:charis:1237457208774496266>",
+                    label="VOTE",
+                    url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+                )
+                
+                view = View()
+                view.add_item(button1)
+                embed = discord.Embed(
+                    description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                    color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+                )
+                
+                return await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
         
             if channel_data is None:
                 return await interaction.response.send_message(
@@ -2466,6 +2500,23 @@ class Views:
             )
             voice_channel = interaction.channel
             channel_data = recent_channel_id["temp"][str(voice_channel.id)]
+            
+            if not await Fungsi.has_voted(interaction.user.id):
+                button1 = Button(
+                    emoji="<:charis:1237457208774496266>",
+                    label="VOTE",
+                    url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+                )
+                
+                view = View()
+                view.add_item(button1)
+                embed = discord.Embed(
+                    description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                    color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+                )
+                
+                return await interaction.respond(embed=embed, view=view, ephemeral=True)
+            
             if interaction.user.id != channel_data:
                 return await interaction.respond(
                     "Hanya pemilik channel yang dapat menggunakan perintah ini.",

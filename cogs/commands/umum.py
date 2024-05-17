@@ -1,5 +1,6 @@
 import discord, os, pytz, humanize, json, string, asyncio, requests, time, csv
 from discord.ext import commands
+from discord.ui import Button, View
 from openai import OpenAI, OpenAIError
 from humanize.i18n import activate
 from datetime import datetime
@@ -440,11 +441,30 @@ class Umum(discord.Cog):
     )
     async def voice_settings(self, ctx, settings: discord.Option(str, description="Pilih pengaturan.", choices=[discord.OptionChoice(name="Ubah Nama", value="name"), discord.OptionChoice(name="Reset Nama", value="resetnama"), discord.OptionChoice(name="Ubah Bitrate", value="bitrate"), discord.OptionChoice(name="Ubah Limit", value="limit"), discord.OptionChoice(name="Slowmode", value="slow_mode"), discord.OptionChoice(name="NSFW", value="nsfw"), discord.OptionChoice(name="Info", value="info"), discord.OptionChoice(name="Hapus Channel", value="delete"), discord.OptionChoice(name="Bersihkan Riwayat Chat", value="clear") ])):
         interaction = ctx
+        if interaction.author.voice is None or interaction.author.voice.channel is None:
+            return await interaction.respond("> Kamu harus berada di dalam voice channel!", delete_after=5)
+            
         voice_channel = ctx.author.voice.channel
         channel_data = recent_channel_id["temp"].get(str(voice_channel.id))
         
         if interaction.response.is_done():
             return
+          
+        if not await Fungsi.has_voted(self, interaction.author.id):
+            button1 = Button(
+                emoji="<:charis:1237457208774496266>",
+                label="VOTE",
+                url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+            )
+            
+            view = View()
+            view.add_item(button1)
+            embed = discord.Embed(
+                description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+            )
+            
+            return await interaction.respond(embed=embed, view=view, delete_after=60, ephemeral=True)
         
         if interaction.user.id != channel_data:
             return await interaction.respond(
@@ -772,6 +792,23 @@ class Umum(discord.Cog):
         await self.set_channel_permissions(ctx, privasi, member)
     async def set_channel_permissions(self, ctx, privasi: str, member: discord.Member = ''):
         await ctx.defer()
+        
+        if not await Fungsi.has_voted(self, ctx.author.id):
+            button1 = Button(
+                emoji="<:charis:1237457208774496266>",
+                label="VOTE",
+                url=f"https://top.gg/bot/{self.bot.user.id}/vote"
+            )
+            
+            view = View()
+            view.add_item(button1)
+            embed = discord.Embed(
+                description=f"Silahkan [vote](https://top.gg/bot/{self.bot.user.id}/vote) bot terlebih dahulu untuk menggunakan perintah ini!",
+                color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color()))
+            )
+            
+            return await ctx.respond(embed=embed, view=view, delete_after=60, ephemeral=True)
+        
         if isinstance(ctx.channel, discord.DMChannel):
             return await ctx.respond("Kamu tidak bisa menggunakan perintah ini di DM!", delete_after=10)
     
