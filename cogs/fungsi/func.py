@@ -33,11 +33,9 @@ class Fungsi(discord.Cog):
         
     async def has_voted(self, user_id: int) -> bool:
         topgg_token = config("TOPGG_TOKEN")
-        url = f"https://top.gg/api/bots/{self.bot.user.id}/votes"
-
-        headers = {
-            "Authorization": topgg_token
-        }
+        
+        url = f"https://top.gg/api/bots/{self.bot.user.id}/check?userId={user_id}"
+        headers = {"Authorization": topgg_token}
 
         async with httpx.AsyncClient() as client:
             response = await client.get(url, headers=headers)
@@ -45,8 +43,8 @@ class Fungsi(discord.Cog):
         if response.status_code != 200:
             return False
 
-        voters = response.json()
-        return any(voter['id'] == str(user_id) for voter in voters)
+        data = response.json()
+        return data.get("voted", False)
 
     # KOTA
     kota_mapping = {
@@ -2501,7 +2499,7 @@ class Views:
             voice_channel = interaction.channel
             channel_data = recent_channel_id["temp"][str(voice_channel.id)]
             
-            if not await Fungsi.has_voted(interaction.user.id):
+            if not await Fungsi.has_voted(self, interaction.user.id):
                 button1 = Button(
                     emoji="<:charis:1237457208774496266>",
                     label="VOTE",
