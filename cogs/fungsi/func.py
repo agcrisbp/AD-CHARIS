@@ -132,6 +132,12 @@ class Fungsi(discord.Cog):
     
             embed = discord.Embed(title=embed_title, description=embed_description, color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color())))
             embed.add_field(name="CATATAN", value=embed_note, inline=False)
+            
+            image_url = "https://i.ibb.co.com/55rJCPQ/Cuplikan-Layar-2024-05-20-06-11-44.png"
+            try:
+                embed.set_image(url=image_url)
+            except discord.errors.HTTPException:
+                print("Invalid image URL:", image_url)
     
             if os.path.exists(guild_pilih_kota_path):
                 await Fungsi.sort_channels(guild)
@@ -2605,6 +2611,10 @@ Ini adalah channel sementaramu, {member.mention}!
 
 - Kamu dapat mengontrol channel ini dengan memilih opsi yang ada di menu dropdown di bawah atau gunakan **`/voice settings`**.
                 """,
+            )
+            
+            self.set_image(
+                url="https://i.ibb.co.com/Y7cmfgN/Cuplikan-Layar-2024-05-20-06-14-05.png",
             )
 
     class Info(discord.Embed):

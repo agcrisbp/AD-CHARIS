@@ -635,6 +635,40 @@ class Control(discord.Cog):
     
     @discord.Cog.listener()
     async def on_guild_join(self, guild):
+        bot_member = guild.me
+        bot_role = bot_member.top_role
+        system_channel = guild.system_channel
+        invite_link = f"https://discord.com/oauth2/authorize?client_id=1237494554677219378&permissions=120259110912&scope=applications.commands+bot"
+        video_url = "https://drive.usercontent.google.com/u/0/uc?id=1AC83U24K62KX8vbIgGt4CP7v2xznR78-&export=download"
+    
+        embed_title = "INFO"
+        embed_description = (f"Fitur ChatGPT-3.5 dimatikan karena pembatasan API. Silahkan gunakan: [CH Cinnamoroll]({invite_link}).")
+    
+        embed_note = (f"Sebelum menggunakan bot ini, pindahkan role {bot_role.mention} seperti di video.")
+    
+        embed = discord.Embed(title=embed_title, description=embed_description, color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color())))
+        embed.add_field(name="CATATAN", value=embed_note, inline=False)
+    
+        async with aiohttp.ClientSession() as session:
+            async with session.get(video_url) as resp:
+                if resp.status == 200:
+                    with open("video.mp4", "wb") as f:
+                        f.write(await resp.read())
+                    video_file_path = "video.mp4"
+    
+                    if system_channel:
+                        await system_channel.send(embed=embed, file=discord.File(video_file_path))
+                    else:
+                        for channel in guild.channels:
+                            if 'moderator-only' in channel.name.lower():
+                                channel = discord.utils.get(guild.text_channels, name="moderator-only")
+                                await channel.send(embed=embed, file=discord.File(video_file_path))
+                    
+                    # Delete the video file after sending
+                    os.remove(video_file_path)
+                else:
+                    print("Failed to download video file:", resp.status)
+
         while True:
             guild_data_directory = os.path.join(DATA_SERVER, str(guild.name))
             os.makedirs(guild_data_directory, exist_ok=True)
@@ -644,15 +678,15 @@ class Control(discord.Cog):
             channel_name = 'pilih-kota'
             
             embed_title = "CARA PILIH KOTA"
-            embed_description = ("- Ketik **`/kota`** lalu pilih kota daerahmu, channel kota yang kamu pilih akan muncul dalam beberapa saat. "
-                                "Gunakan **`/delkota`** untuk menghapus kota daerahmu.")
+            embed_description = ("- Ketik **`/prayer add`** lalu pilih kota daerahmu, channel kota yang kamu pilih akan muncul dalam beberapa saat. "
+                                "Gunakan **`/prayer delete`** untuk menghapus kota daerahmu.")
     
-            embed_note = ("- Jika kotamu tidak tersedia, lapor menggunakan **`/bug`** agar owner membuatnya.")
+            embed_note = ("- Jika kotamu tidak tersedia, lapor menggunakan **`/bug`**.")
     
             embed = discord.Embed(title=embed_title, description=embed_description, color=discord.Color.from_rgb(*Fungsi.hex_to_rgb(Fungsi.generate_random_color())))
             embed.add_field(name="CATATAN", value=embed_note, inline=False)
             
-            image_url = "https://i.ibb.co/sywMp5S/Cuplikan-Layar-2024-04-20-16-02-59.png"
+            image_url = "https://i.ibb.co.com/55rJCPQ/Cuplikan-Layar-2024-05-20-06-11-44.png"
             try:
                 embed.set_image(url=image_url)
             except discord.errors.HTTPException:
